@@ -9,7 +9,7 @@ on:
       - 'MD/**'
 
 jobs:
-  convert md to html and save file to HTML folder:
+  Convert:
     runs-on: ubuntu-latest
 
     steps:
