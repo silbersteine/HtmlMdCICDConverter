@@ -1,8 +1,9 @@
 ---
 title: My Document
+date: 
 ---
 
 Test
 ----
 
-some textasdddfasddaddsdfddddfdd
+some textasddasdfdfasddaddsdfddddfdd
