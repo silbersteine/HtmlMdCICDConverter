@@ -35,9 +35,11 @@ jobs:
 
       - name: Convert Updated/New MD to HTML
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            html_file="HTML/$(basename "$md_file" .md).html"
-            pandoc -s -f markdown -t html "$md_file" -o "$html_file"
+          for md_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            if [[ $md_file == MD/*.md ]]; then
+              html_file="HTML/$(basename "$md_file" .md).html"
+              pandoc -s -f markdown -t html "$md_file" -o "$html_file"
+            fi
           done
 
       - name: Commit and Push
