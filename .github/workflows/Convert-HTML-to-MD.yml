@@ -40,7 +40,7 @@ jobs:
           for html_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $html_file == TranslatedHTML/*.html ]]; then
               md_file="TranslatedMD/$(basename "$html_file" .html).md"
-              pandoc -s -f html -t gfm-raw_html "$html_file" -o "$md_file"
+              pandoc -s -f html -t "$html_file" -o "$md_file"
             fi
           done
 
