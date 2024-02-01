@@ -16,8 +16,10 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Setup Pandoc
-        uses: docker://pandoc/core:2.9
+      - name: Install Pandoc
+        run: |
+          sudo apt -y update
+          sudo apt -y install pandoc
 
       - name: Convert MD to HTML
         run: |
