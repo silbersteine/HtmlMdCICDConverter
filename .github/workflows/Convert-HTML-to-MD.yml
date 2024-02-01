@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'TranslateHTML/**'
+      - 'TranslatedHTML/**'
 
 jobs:
    changed_files:
@@ -25,7 +25,7 @@ jobs:
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if echo "$file" | grep -q "^TranslateHTML/"; then
+            if echo "$file" | grep -q "^TranslatedHTML/"; then
             echo "$file was changed"
             fi
           done
@@ -38,7 +38,7 @@ jobs:
       - name: Convert Updated/New HTML to MD
         run: |
           for html_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ $html_file == TranslateHTML/*.html ]]; then
+            if [[ $html_file == TranslatedHTML/*.html ]]; then
               md_file="MD/$(basename "$html_file" .html).md"
               pandoc -s -f html -t markdown "$html_file" -o "$md_file"
             fi
@@ -48,6 +48,6 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add MD/*.md
+          git add TranslatedMD/*.md
           git commit -m "Add MD files" -a
           git push
