@@ -9,7 +9,7 @@ on:
       - 'MD/**'
 
 jobs:
-  convert:
+  convert md to html and save file to HTML folder:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,9 +21,9 @@ jobs:
           sudo apt -y update
           sudo apt -y install pandoc
 
-      - name: Convert MD to HTML
+      - name: Convert Updated/New MD to HTML
         run: |
-          for md_file in MD/*.md; do
+          git diff --name-only HEAD^ HEAD | grep '^MD/.*\.md$' | while read md_file; do
             html_file="HTML/$(basename "$md_file" .md).html"
             pandoc -s -f markdown -t html "$md_file" -o "$html_file"
           done
