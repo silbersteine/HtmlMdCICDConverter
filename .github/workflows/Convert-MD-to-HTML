@@ -1,0 +1,34 @@
+name: Convert MD to HTML
+
+on:
+  push:
+    branches:
+      - main
+    paths: 
+      - 'MD/**'
+
+
+jobs:
+  conver:
+     runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out code
+          uses: actions/checkout@v2
+
+        - name: Setup Pandoc
+          uses: pandoc/core@2.14.0.3
+
+        - name: Convert MD to HTML
+           run: |
+            for md_file in Markdown/*.md; do
+             html_file="HTML/$(basename "$md_file" .md).html"
+             pandoc "$md_file" -o "$html_file"
+            done
+        - name: Commit and Push
+            run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Actions"
+            git add HTML/*.html
+            git commit -m "Add HTML files" -a
+            git push
