@@ -40,7 +40,7 @@ jobs:
           for md_file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             if [[ $md_file == MD/*.md ]]; then
               html_file="HTML/$(basename "$md_file" .md).html"
-              pandoc -s -f markdown -t html --tempate=template.html "$md_file" -o "$html_file"
+              pandoc -s -f markdown -t html --template=template.html "$md_file" -o "$html_file"
             fi
           done
 
