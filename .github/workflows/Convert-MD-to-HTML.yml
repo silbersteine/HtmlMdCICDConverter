@@ -1,6 +1,7 @@
 name: Convert MD to HTML
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -22,7 +23,7 @@ jobs:
         run: |
           for md_file in MD/*.md; do
             html_file="HTML/$(basename "$md_file" .md).html"
-            pandoc -f markdown -t html "$md_file" -o "$html_file"
+            pandoc -s -f markdown -t html "$md_file" -o "$html_file"
           done
 
       - name: Commit and Push
