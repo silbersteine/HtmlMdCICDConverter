@@ -28,14 +28,10 @@ jobs:
             pandoc -s -f markdown -t html "$md_file" -o "$html_file"
           done
 
-      - name: Create Pull Request
-        run : |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git checkout -b md-to-html-$(date +'%Y%m%d%H%M%S')
-            git add HTML/*.html
-            git commit -m "Add HTML files"
-            git push origin md-to-html-$(date +'%Y%m%d%H%M%S')
-            gh pr create --base main --title "Update HTML Files" --body "This PR updates the HTML files from the updated/add MD files."
-        env:
-            GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit and Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add HTML/*.html
+          git commit -m "Add HTML files" -a
+          git push
